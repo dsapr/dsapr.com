@@ -102,7 +102,7 @@ export default function Component () {
     <HeroSection>
       <Avatar />
       <Title>
-        Hi, I'm dsapr.
+        Hi, I&apos;m dsapr.
         <Underline hue={ 42 } />
       </Title>
       <Subtitle>A Java developer.</Subtitle>
