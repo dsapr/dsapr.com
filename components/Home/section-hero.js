@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 
 import Avatar from './avatar'
-import SvgUnderline from "../../public/svg/underline.svg"
+
 
 const HeroSection = styled.div`
   margin-top: 3.5rem;
@@ -22,6 +22,18 @@ const Title = styled.div`
   }
 `
 
+const Subtitle = styled.div`
+  color: hsla(240, 68%, 5%, 1);
+  font-size: 1.5rem;
+  margin-top: 1.125rem;
+  line-height: 2rem;
+  margin-left: 2px;
+
+  @media (min-width: 768px) {
+    font-size: 1.8rem;
+  }
+`
+
 const tick = keyframes`
   0%, 50% {
     stroke-dashoffset: 234px;
@@ -31,17 +43,50 @@ const tick = keyframes`
   }
 `
 
-const Underline = styled(SvgUnderline)`
+// const Underline = styled(SvgUnderline)`
+//   position: absolute;
+//   color: hsl(${props => props.hue - 8}, 100%, 70%);
+//   z-index: -1;
+//   height: 26px;
+//   left: 100px;
+//   bottom: -6px;
+//   stroke-dasharray: 234px;
+//   stroke-dashoffset: 234px;
+//   animation: 3s ${tick} ease-in-out forwards;
+
+//   @media (min-width: 768px) {
+//     position: relative;
+//     bottom: 0;
+//     top: 20px;
+//     left: -201px;
+//     height: 42px;
+//   }
+// `
+
+const Underline = styled.svg.attrs({
+  children: (
+    <path
+      d="M3.5,22.5C96.5,22.5 124.667,10.5 144,3.5"
+      stroke="currentColor"
+      strokeWidth="6"
+      strokeLinecap="round"
+      strokeLinejoin="round" />
+  ),
+  viewBox: "0 0 147 26",
+  fill: "none",
+  xmlns: "http://www.w3.org/2000/svg",
+})`
+  animation: 3s ${tick} ease-in-out forwards;
   position: absolute;
   color: hsl(${props => props.hue - 8}, 100%, 70%);
   z-index: -1;
   height: 26px;
-  left: 100px;
+  left: 1000px;
   bottom: -6px;
   stroke-dasharray: 234px;
   stroke-dashoffset: 234px;
   animation: 3s ${tick} ease-in-out forwards;
-
+  
   @media (min-width: 768px) {
     position: relative;
     bottom: 0;
@@ -49,17 +94,17 @@ const Underline = styled(SvgUnderline)`
     left: -201px;
     height: 42px;
   }
-`
+`;
 
 export default function Component () {
+  
   return (
     <HeroSection>
       <Avatar />
       <Title>
         Hi, I'm dsapr.
-
-        <Underline/>
-
+        <Underline hue={ 42 } />
+        <Subtitle>A Java developer.</Subtitle>
       </Title>
     </HeroSection>
   )

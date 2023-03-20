@@ -58,7 +58,7 @@ export default function Component() {
           alt="avatar"
           height={54}
           width={54}
-          layout="intrinsic"
+          priority
           quality={100}
         />
       </InnerCircle>

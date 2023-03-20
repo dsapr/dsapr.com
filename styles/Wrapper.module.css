@@ -6,7 +6,7 @@
 }
 
 /* if max width <= 600 px */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .wrapper {
     margin-top: 5px;
     padding: 0 25px;
