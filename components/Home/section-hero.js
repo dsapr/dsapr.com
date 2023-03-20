@@ -76,12 +76,12 @@ const Underline = styled.svg.attrs({
   fill: "none",
   xmlns: "http://www.w3.org/2000/svg",
 })`
-  animation: 3s ${tick} ease-in-out forwards;
   position: absolute;
+  animation: 3s ${tick} ease-in-out forwards;
   color: hsl(${props => props.hue - 8}, 100%, 70%);
   z-index: -1;
   height: 26px;
-  left: 1000px;
+  left: 100px;
   bottom: -6px;
   stroke-dasharray: 234px;
   stroke-dashoffset: 234px;
@@ -90,9 +90,9 @@ const Underline = styled.svg.attrs({
   @media (min-width: 768px) {
     position: relative;
     bottom: 0;
-    top: 20px;
-    left: -201px;
     height: 42px;
+    left: -201px;
+    top: 20px;
   }
 `;
 
@@ -104,8 +104,8 @@ export default function Component () {
       <Title>
         Hi, I'm dsapr.
         <Underline hue={ 42 } />
-        <Subtitle>A Java developer.</Subtitle>
       </Title>
+      <Subtitle>A Java developer.</Subtitle>
     </HeroSection>
   )
 }
