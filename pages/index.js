@@ -1,7 +1,16 @@
-export default function Home() {
+import Head from 'next/head'
+import Wrapper from '../components/Wrapper'
+import Footer from '../components/Footer'
+
+export default function Home () {
   return (
-    <main>
-      <h1>Home Page</h1>
-    </main>
+    <div>
+      <Head>
+        <title>dsapr&apos;s blog</title>
+      </Head>
+      <Wrapper>
+        <Footer />
+      </Wrapper>
+    </div>
   )
 }
