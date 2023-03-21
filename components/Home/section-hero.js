@@ -1,7 +1,9 @@
+import React, { useState, useContext } from 'react';
 import styled, { keyframes } from 'styled-components'
 
 import Avatar from './avatar'
-
+import Divider from '../Divider'
+import { AppContext } from "@/store/index"
 
 const HeroSection = styled.div`
   margin-top: 3.5rem;
@@ -97,15 +99,17 @@ const Underline = styled.svg.attrs({
 `;
 
 export default function Component () {
+  const { hue, setHue } = useContext(AppContext)
   
   return (
     <HeroSection>
       <Avatar />
       <Title>
         Hi, I&apos;m dsapr.
-        <Underline hue={ 42 } />
+        <Underline hue={hue} />
       </Title>
       <Subtitle>A Java developer.</Subtitle>
+      <Divider />
     </HeroSection>
   )
 }
