@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled, { keyframes } from 'styled-components'
 
 import Avatar from './avatar'
-import Divider from '../Divider'
+import Divider from '../divider'
 import { AppContext } from "@/store/index"
 
 const HeroSection = styled.div`
