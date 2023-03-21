@@ -2,6 +2,8 @@ import React, { useContext } from "react"
 import styled from "styled-components"
 import Image from "next/image"
 
+import { AppContext } from "store"
+
 const InnerCircle = styled.div`
   width: 4rem;
   height: 4rem;
@@ -48,11 +50,12 @@ const OuterCircle = styled.div`
   }
 `
 
-export default function Component() {
+export default function Component () {
+  const { hue } = useContext(AppContext)
 
   return (
     <OuterCircle>
-      <InnerCircle>
+      <InnerCircle hue={hue}>
         <Image
           src="/images/avatar.png"
           alt="avatar"
