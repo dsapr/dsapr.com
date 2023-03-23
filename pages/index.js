@@ -10,7 +10,6 @@ import Plum from '../components/layout/plum.tsx'
 export default function Home (props) {
   return (
     <App {...props}>
-
       <Head>
         <title>dsapr&apos;s blog</title>
       </Head>
