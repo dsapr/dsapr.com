@@ -2,13 +2,15 @@ import Head from 'next/head'
 
 import App from "@/components/app"
 import Wrapper from '../components/Wrapper'
-import SectionHero from '../components/Home/section-hero'
-import Content from '../components/Home/content'
+import SectionHero from '../components/home/section-hero'
+import Content from '../components/home/content'
 import Footer from '../components/Footer'
+import Plum from '../components/layout/plum.tsx'
 
 export default function Home (props) {
   return (
     <App {...props}>
+
       <Head>
         <title>dsapr&apos;s blog</title>
       </Head>
@@ -17,6 +19,7 @@ export default function Home (props) {
         <Content />
         <Footer />
       </Wrapper>
+      <Plum/>
     </App>
   )
 }
