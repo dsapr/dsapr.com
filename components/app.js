@@ -5,7 +5,7 @@ import { AppContext } from "../store/index"
 
 const App = styled.div`
   margin: 0 2rem;
-  max-width: 43rem;
+  max-width: 42rem;
 `
 
 export default function Component ({ children, hue: hueCookie }) {
