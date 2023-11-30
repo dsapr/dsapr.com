@@ -25,8 +25,15 @@ export default function Content() {
               target="_blank"
               href="https://github.com/dsapr"
             >
-              Github.
+              Github
             </a>
+            ,<a
+              className={`${styls.external}`}
+              target="_blank"
+              href= 'blog' 
+            >
+              Blog
+            </a>.
           </p>
           <p>
             I love <span className={utilStyles.stress}>cats</span>. 🐈

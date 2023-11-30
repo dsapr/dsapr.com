@@ -18,7 +18,7 @@ export default function Home (props) {
         <Content />
         <Footer />
       </Wrapper>
-      <Plum/>
+     
     </App>
   )
 }
