@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import JsonUtil from "../../utils/JsonUtil";
+import StringUtil from "../../utils/StringUtil";
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -34,16 +35,41 @@ export default function MyComponent() {
       let jsonObj = JSON.parse(text);
       // 格式化输入框json
       setText(JSON.stringify(jsonObj, null, 2));
-  
-      console.log("===========")
-      for (const key in jsonObj) {
-        if (jsonObj.hasOwnProperty(key)) {
-          const value = jsonObj[key];
-          console.log(key + ": " + value,"-type:",typeof(value),"isArr:",Array.isArray(value));
-        }
-      }
+
+      console.log("===========");
+      const strClass = dfs("", jsonObj, 0);
+      console.log(strClass);
+      setOutText(strClass)
     }
   };
+
+  // 递归拼接字符串生成类
+  function dfs(strClass, jsonObj, index) {
+    for (const key in jsonObj) {
+      if (jsonObj.hasOwnProperty(key)) {
+        if (StringUtil.isBlank(strClass)) {
+          strClass += "[类注解] \n"
+          strClass += "public class ClassName { \n";
+        }
+        const objType = getType(jsonObj[key]);
+        // 添加属性
+        strClass += `    [字段注解] \n`;
+        strClass += `    public ${objType} ${key}; \n`;
+      }
+    }
+    strClass += "}";
+    return strClass;
+  }
+
+  function getType(obj) {
+    if (Array.isArray(obj)) {
+      return "List";
+    }
+    if (typeof obj === "number") {
+      return "int";
+    }
+    return typeof obj;
+  }
 
   return (
     <Container>

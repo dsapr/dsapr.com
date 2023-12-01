@@ -1,4 +1,3 @@
-const { cache } = require("react");
 
 class JsonUtil { 
     static isJson(str) {
