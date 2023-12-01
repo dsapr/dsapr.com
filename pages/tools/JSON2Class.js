@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import JsonUtil from "../../utils/JsonUtil";
 import StringUtil from "../../utils/StringUtil";
+import Head from "next/head";
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -39,7 +40,7 @@ export default function MyComponent() {
       console.log("===========");
       const strClass = dfs("", jsonObj, 0);
       console.log(strClass);
-      setOutText(strClass)
+      setOutText(strClass);
     }
   };
 
@@ -48,7 +49,7 @@ export default function MyComponent() {
     for (const key in jsonObj) {
       if (jsonObj.hasOwnProperty(key)) {
         if (StringUtil.isBlank(strClass)) {
-          strClass += "[类注解] \n"
+          strClass += "[类注解] \n";
           strClass += "public class ClassName { \n";
         }
         const objType = getType(jsonObj[key]);
@@ -73,6 +74,9 @@ export default function MyComponent() {
 
   return (
     <Container>
+      <Head>
+        <title>protobuf工具</title>
+      </Head>
       <Input value={text} onChange={(e) => setText(e.target.value)} />
       <button onClick={handleSubmit}>Switch</button>
       <Output value={outText} />
