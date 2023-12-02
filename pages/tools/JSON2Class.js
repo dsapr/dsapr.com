@@ -46,41 +46,45 @@ export default function MyComponent() {
   const INDENT = "    "; // 四个空格的缩进
   // 递归拼接字符串生成类
   function dfs(strClass, jsonObj, index) {
-
     // 放置当前 object 中的 object 属性
     let objs = [];
     const CUR_INDENT = getCurIndent(index);
     const CUR_CLASS_INDENT = getCurClassIndent(index);
     let curStrClass = "";
 
+    let fieldIndex = 0;
     for (const key in jsonObj) {
       if (jsonObj.hasOwnProperty(key)) {
         let value = jsonObj[key];
         if (StringUtil.isBlank(curStrClass)) {
           curStrClass += `${CUR_CLASS_INDENT}[ProtoBuf.ProtoContract()] \n`;
-          curStrClass += `${CUR_CLASS_INDENT}[public class ClassName { \n \n`;
+          curStrClass += `${CUR_CLASS_INDENT}[public class ClassName_${index+1} { \n \n`;
         }
         const objType = getType(value);
         // 添加属性
         curStrClass += `${CUR_INDENT}[ProtoBuf.ProtoMember(1)] \n`;
-        curStrClass += `${CUR_INDENT}public ${objType} ${key}; \n \n`;
+        curStrClass += `${CUR_INDENT}public ${objType} ${key}_${index+1}-${fieldIndex+1}; \n \n`;
 
         if (objType === "object") {
           objs.push({ className: key, classObj: value });
         }
       }
+
+      fieldIndex++;
     }
     strClass += curStrClass;
-
-    console.log("=======", index);
-    console.log("strClass", strClass);
-
     // 在此构造内部类
     for (const o in objs) {
-      strClass += dfs(strClass, objs[o].classObj, index + 1);
+      // 把最后一层返回给 0 层
+      strClass = dfs(strClass, objs[o].classObj, index + 1);
     }
-    
+
     strClass += `${CUR_CLASS_INDENT}} \n`;
+
+    if (index === 0) {
+      console.log("=======", index);
+      console.log("strClass", strClass);
+    }
 
     return strClass;
   }
