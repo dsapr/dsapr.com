@@ -37,29 +37,68 @@ export default function MyComponent() {
       // 格式化输入框json
       setText(JSON.stringify(jsonObj, null, 2));
 
-      console.log("===========");
       const strClass = dfs("", jsonObj, 0);
-      console.log(strClass);
+
       setOutText(strClass);
     }
   };
 
+  const INDENT = "    "; // 四个空格的缩进
   // 递归拼接字符串生成类
   function dfs(strClass, jsonObj, index) {
+
+    // 放置当前 object 中的 object 属性
+    let objs = [];
+    const CUR_INDENT = getCurIndent(index);
+    const CUR_CLASS_INDENT = getCurClassIndent(index);
+    let curStrClass = "";
+
     for (const key in jsonObj) {
       if (jsonObj.hasOwnProperty(key)) {
-        if (StringUtil.isBlank(strClass)) {
-          strClass += "[类注解] \n";
-          strClass += "public class ClassName { \n";
+        let value = jsonObj[key];
+        if (StringUtil.isBlank(curStrClass)) {
+          curStrClass += `${CUR_CLASS_INDENT}[ProtoBuf.ProtoContract()] \n`;
+          curStrClass += `${CUR_CLASS_INDENT}[public class ClassName { \n \n`;
         }
-        const objType = getType(jsonObj[key]);
+        const objType = getType(value);
         // 添加属性
-        strClass += `    [字段注解] \n`;
-        strClass += `    public ${objType} ${key}; \n`;
+        curStrClass += `${CUR_INDENT}[ProtoBuf.ProtoMember(1)] \n`;
+        curStrClass += `${CUR_INDENT}public ${objType} ${key}; \n \n`;
+
+        if (objType === "object") {
+          objs.push({ className: key, classObj: value });
+        }
       }
     }
-    strClass += "}";
+    strClass += curStrClass;
+
+    console.log("=======", index);
+    console.log("strClass", strClass);
+
+    // 在此构造内部类
+    for (const o in objs) {
+      strClass += dfs(strClass, objs[o].classObj, index + 1);
+    }
+    
+    strClass += `${CUR_CLASS_INDENT}} \n`;
+
     return strClass;
+  }
+
+  function getCurIndent(index) {
+    let strRes = INDENT;
+    for (let i = 0; i < index; i++) {
+      strRes += INDENT;
+    }
+    return strRes;
+  }
+
+  function getCurClassIndent(index) {
+    let strRes = "";
+    for (let i = 0; i < index; i++) {
+      strRes += INDENT;
+    }
+    return strRes;
   }
 
   function getType(obj) {
